@@ -1,0 +1,21 @@
+Leapmotion software download - https://www.leapmotion.com/setup
+
+Python 2.7.8 release download - https://www.python.org/download/releases/2.7.8/
+
+Leapmotion SDK python script - https://gist.github.com/Aperture-Laboratories/4962593 [DOES NOT WORK CORRECTLY]
+
+//-----------------------------------------------------------------------------------------------
+Setting up Python 2.7.8 for Leapmotion:
+//-----------------------------------------------------------------------------------------------
+1. Copy LeapSDK\lib\Leap.py to C:\Python27\Lib\Leap.py
+
+2. Copy 3 files in LeapSDK\include (Leap.h, Leap.i, LeapMath.i) to C:\Python27\include directory
+
+3. Copy 9 files from LeapSDK\lib\x64 to C:\Python27\DLLs directory
+//-----------------------------------------------------------------------------------------------
+
+
+
+
+
+
