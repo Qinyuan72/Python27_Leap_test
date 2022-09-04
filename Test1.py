@@ -14,13 +14,38 @@ from time import sleep
 import Leap
 
 class SampleListener(Leap.Listener):
-    
+    finger_names = ['Thumb', 'Index', 'Middle', 'Ring', 'Pinky']
+    bone_names = ['Metacarpal', 'Proximal', 'Intermediate', 'Distal']
+    state_names = ['STATE_INVALID', 'STATE_START', 'STATE_UPDATE', 'STATE_END']
+
+    def on_init(self, controller):
+        print "Initialized"
+
     def on_connect(self, controller):
         print "Connected"
 
+        # Enable gestures
+        controller.enable_gesture(Leap.Gesture.TYPE_CIRCLE);
+        controller.enable_gesture(Leap.Gesture.TYPE_KEY_TAP);
+        controller.enable_gesture(Leap.Gesture.TYPE_SCREEN_TAP);
+        controller.enable_gesture(Leap.Gesture.TYPE_SWIPE);
+
+    def on_disconnect(self, controller):
+        # Note: not dispatched when running in a debugger.
+        print "Disconnected"
+
+    def on_exit(self, controller):
+        print "Exited"
+
     def on_frame(self,controller):
         frame = controller.frame()
-        framInfo = "hands: %d, &fingers: %d" % (len(frame.hands), len(frame.fingers))
+        #print "Frame id: %d, timestamp: %d, hands: %d, fingers: %d, tools: %d, gestures: %d" % (frame.id, frame.timestamp, len(frame.hands), len(frame.fingers), len(frame.tools), len(frame.gestures()))
+        framInfo = ''
+        handType = ''
+        for hand in frame.hands:
+            handType = "Left hand" if hand.is_left else "Right hand"
+        framInfo = "%s&fingers: %d" % (handType, len(frame.fingers))
+
         #print framInfo
         espSocket8266.socket_send(espSocket8266.LCD_str_inputmaker(framInfo))
 
@@ -64,6 +89,8 @@ def main():
     controller = Leap.Controller()
     controller.add_listener(listener)
     # Keep this process running until Enter is pressed
+    
+    
     print "Press Enter to quit..."
     try:
         sys.stdin.readline()
@@ -71,6 +98,6 @@ def main():
         pass
     finally:
         controller.remove_listener(listener)
-
+    
 if __name__ == "__main__":
     main()
