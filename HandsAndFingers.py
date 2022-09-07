@@ -44,6 +44,19 @@ class SampleListener(Leap.Listener):
         handType = ''
         for hand in frame.hands:
             handType = "Left hand" if hand.is_left else "Right hand"
+            print "  %s, id %d, position: %s" % (handType, hand.id, hand.palm_position) #Hand position 
+            for finger in hand.fingers:
+
+                print "    %s finger, id: %d, length: %fmm, width: %fmm" % (
+                    self.finger_names[finger.type],
+                    finger.id,
+                    finger.length,
+                    finger.width)
+
+                # Get bones
+                for b in range(0, 4):
+                    bone = finger.bone(b)
+                    print "      Bone: %s, start: %s, end: %s, direction: %s" % (self.bone_names[bone.type],bone.prev_joint,bone.next_joint,bone.direction)
         framInfo = "%s&fingers: %d" % (handType, len(frame.fingers))
 
         #print framInfo
