@@ -18,6 +18,7 @@ class SampleListener(Leap.Listener):
     bone_names = ['Metacarpal', 'Proximal', 'Intermediate', 'Distal']
     state_names = ['STATE_INVALID', 'STATE_START', 'STATE_UPDATE', 'STATE_END']
     frameInfo = ''
+    accumulatorFloat = 0.0
     def on_init(self, controller):
         print "Initialized"
 
@@ -37,6 +38,10 @@ class SampleListener(Leap.Listener):
     def on_exit(self, controller):
         print "Exited"
 
+    def accumulator(self,newFloat):
+        self.accumulatorFloat += self.accumulatorFloat - newFloat
+        return self.accumulatorFloat
+
     def on_frame(self,controller):
         frame = controller.frame()
         #print "Frame id: %d, timestamp: %d, hands: %d, fingers: %d, tools: %d, gestures: %d" % (frame.id, frame.timestamp, len(frame.hands), len(frame.fingers), len(frame.tools), len(frame.gestures()))
@@ -54,10 +59,11 @@ class SampleListener(Leap.Listener):
                 # Determine clock direction using the angle between the pointable and the circle normal
                 if circle.pointable.direction.angle_to(circle.normal) <= Leap.PI/2:
                     clockwiseness = "clockwise"
-                    self.frameInfo = "circle&clockwise"
+                    self.frameInfo = "circle %i&clockwise" % (round(circle.progress,0))
+                    #self.accumulator(circle.progress)
                 else:
                     clockwiseness = "counterclockwise"
-                    self.frameInfo = "circle&countercclock"
+                    self.frameInfo = "circle %i&Conterclockwise" % (round(circle.progress,0))
 
                 # Calculate the angle swept since the last frame
                 swept_angle = 0
@@ -103,7 +109,7 @@ class espSocket:
     def socket_send(self,st):
         if st != self.stCompar:
             self.sock.sendall(bytes("$%s" % st))
-            print("sent:%s"%st)
+            print("espSocket.sent:%s"%st)
             self.stCompar = st
         
     def LCD_str_inputmaker(self,input_str = ""):
