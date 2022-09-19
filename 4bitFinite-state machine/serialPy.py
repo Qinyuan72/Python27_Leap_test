@@ -155,8 +155,5 @@ def main():
         if i == 9:
             i = 0
 
-
-    
-
 if __name__ == "__main__":
     main()
