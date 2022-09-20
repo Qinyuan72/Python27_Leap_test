@@ -2,13 +2,13 @@ import serial
 import psutil
 from time import sleep
 import socket
-sleeptime = 0.1
+sleeptime = 0.5
 logfile = "jp2091"
 
 def socket_start():
     global sock
     sock = socket.socket()
-    host = "192.168.31.155"
+    host = "192.168.137.74"
     port = 8080
     sock.connect((host, port))
     print("Connected . . .")
