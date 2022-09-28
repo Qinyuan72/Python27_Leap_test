@@ -1,32 +1,6 @@
-from asyncio import sleep
-from asyncore import loop
-from pickle import TRUE
+from traceback import print_list
 import serial
 import time
-
-'''
-def write_read(x):
-    arduino.write(bytes(x, 'ASCII'))
-    time.sleep(0.05)
-    data = arduino.readline()
-    return data
-
-
-while True:
-    for i in [2, 3, 4, 5]:
-        num = "${}".format(i)
-        num = num.rstrip()
-        value = write_read(num)
-        print(value)  # printing the value
-        time.sleep(0.5)
-
-    for i in [2, 3, 4, 5]:
-        num = "^{}".format(i)
-        num = num.rstrip()
-        value = write_read(num)
-        print(value)  # printing the value
-        time.sleep(0.5)
-'''
 
 
 class UNO_Serial:
@@ -47,7 +21,7 @@ class UNO_Serial:
 class Test:
     def terminalInput():
         testinput = 0
-        loopBool = TRUE
+        loopBool = True
         while loopBool:
             try:
                 testinput = int(input("Accept number form 1-16 to set case: "))
@@ -61,7 +35,8 @@ class Test:
             UNO_Serial1.write(UNO_Serial1.inputFormart(17))
 
     def loopAllBitTest():
-        loopBool = TRUE
+        print("loopAllBitTest")
+        loopBool = True
         while loopBool:
             for i in range(1, 16):
                 UNO_Serial1.write(UNO_Serial1.inputFormart(i))
