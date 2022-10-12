@@ -8,7 +8,7 @@ logfile = "jp2091"
 def socket_start():
     global sock
     sock = socket.socket()
-    host = "192.168.137.74"
+    host = "192.168.137.32"
     port = 8080
     sock.connect((host, port))
     print("Connected . . .")
