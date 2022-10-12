@@ -2,6 +2,7 @@ from traceback import print_list
 import serial
 import time
 
+sleepTime = 11
 
 class UNO_Serial:
     def __init__(self):
@@ -40,9 +41,9 @@ class Test:
         while loopBool:
             for i in range(1, 16):
                 UNO_Serial1.write(UNO_Serial1.inputFormart(i))
-                time.sleep(0.5)
+                time.sleep(sleepTime)
                 UNO_Serial1.write(UNO_Serial1.inputFormart(17))
-                time.sleep(0.5)
+                time.sleep(0.01)
 
 
 def main():
