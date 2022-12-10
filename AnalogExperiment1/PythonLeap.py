@@ -66,13 +66,20 @@ class SampleListener(Leap.Listener):
             UNO_Serial1.writeData(dataArry)
 
         for gesture in frame.gestures():
-            if gesture.type == Leap.Gesture.TYPE_CIRCLE:
+            if gesture.type == Leap.Gesture.TYPE_SWIPE:
+                swipe = SwipeGesture(gesture)
+                print "  Swipe id: %d, state: %s, position: %s, direction: %s, speed: %f" % (gesture.id, self.state_names[gesture.state],swipe.position, swipe.direction, swipe.speed)
+                self.frameInfo = "swipe"
+                self.plotData()
+                time.sleep(1)
 
-                if gesture.type == Leap.Gesture.TYPE_KEY_TAP:
-                    keytap = KeyTapGesture(gesture)
-                    print "  Key Tap id: %d, %s, position: %s, direction: %s" % (gesture.id, self.state_names[gesture.state],keytap.position, keytap.direction )
-                    self.frameInfo = "keytap"
 
+    def plotData(self):
+        f.close
+        os.system('python AnalogExperiment1\Test\Test1.py')
+        f.open('AnalogExperiment1\Test\Test1.csv','a+')
+
+        pass
 
     def state_string(self, state):
         if state == Leap.Gesture.STATE_START:
@@ -114,7 +121,7 @@ class UNO_Serial:
 def main():
     # Create a sample listener and controller
     global f
-    f = open('AnalogExperiment1\Test\Test1.csv','w')
+    f = open('AnalogExperiment1\Test\Test1.csv','a+')
     global UNO_Serial1
     UNO_Serial1 = UNO_Serial()
     listener = SampleListener()

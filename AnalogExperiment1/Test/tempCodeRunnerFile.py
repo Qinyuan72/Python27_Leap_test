@@ -1,2 +1,2 @@
 
-zenerData[:,1] = zenerData[:,1] * 
+plt.show()

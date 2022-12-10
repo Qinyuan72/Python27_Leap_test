@@ -87,7 +87,7 @@ class SampleListener(Leap.Listener):
                 screentap = ScreenTapGesture(gesture)
                 print "  Screen Tap id: %d, %s, position: %s, direction: %s" % (gesture.id, self.state_names[gesture.state],screentap.position, screentap.direction )
                 self.frameInfo = "Screen Tap"
-        espSocket8266.socket_send(espSocket8266.LCD_str_inputmaker(self.frameInfo))
+        #espSocket8266.socket_send(espSocket8266.LCD_str_inputmaker(self.frameInfo))
 
 
 
@@ -122,8 +122,8 @@ class espSocket:
             
 def main():
     global espSocket8266
-    espSocket8266 = espSocket(espSocketConfig=('192.168.31.154',8080))#This two line is necessary to initialize the PSM object.
-    espSocket8266.espSocket_start()                                        #//
+    #espSocket8266 = espSocket(espSocketConfig=('192.168.31.154',8080))#This two line is necessary to initialize the PSM object.
+    #espSocket8266.espSocket_start()                                        #//
 
     listener = SampleListener()
     controller = Leap.Controller()
