@@ -7,7 +7,7 @@ arch_dir = '../lib/x64' if sys.maxsize > 2**32 else '../lib/x86'
 
 sys.path.insert(0, os.path.abspath(os.path.join(src_dir, arch_dir)))
 
-    |
+
 import socket
 from time import sleep
 
@@ -38,6 +38,7 @@ class SampleListener(Leap.Listener):
         print "Exited"
 
     def on_frame(self,controller):
+        os.system('cls')
         frame = controller.frame()
         #print "Frame id: %d, timestamp: %d, hands: %d, fingers: %d, tools: %d, gestures: %d" % (frame.id, frame.timestamp, len(frame.hands), len(frame.fingers), len(frame.tools), len(frame.gestures()))
         framInfo = ''

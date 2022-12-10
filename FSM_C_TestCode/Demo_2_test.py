@@ -6,7 +6,7 @@ sleepTime = 11
 
 class UNO_Serial:
     def __init__(self):
-        self.arduino = serial.Serial(port='COM10', baudrate=115200, timeout=.1)
+        self.arduino = serial.Serial(port='COM3', baudrate=115200, timeout=.1)
         self.arduino.readline()
 
     def write(self, x):
