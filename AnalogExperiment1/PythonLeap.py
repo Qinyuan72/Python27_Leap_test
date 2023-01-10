@@ -76,9 +76,7 @@ class SampleListener(Leap.Listener):
 
     def plotData(self):
         f.close
-        os.system('python AnalogExperiment1\Test\Test1.py')
-        f.open('AnalogExperiment1\Test\Test1.csv','a+')
-
+        os.system('python AnalogExperiment1\Test\plot.py')
         pass
 
     def state_string(self, state):
@@ -121,7 +119,7 @@ class UNO_Serial:
 def main():
     # Create a sample listener and controller
     global f
-    f = open('AnalogExperiment1\Test\Test1.csv','a+')
+    f = open('AnalogExperiment1//Test//1N4148.csv','a+')
     global UNO_Serial1
     UNO_Serial1 = UNO_Serial()
     listener = SampleListener()
