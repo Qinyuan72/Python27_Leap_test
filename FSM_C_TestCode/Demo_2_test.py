@@ -2,11 +2,11 @@ from traceback import print_list
 import serial
 import time
 
-sleepTime = 11
+sleepTime = 0.5
 
 class UNO_Serial:
     def __init__(self):
-        self.arduino = serial.Serial(port='COM3', baudrate=115200, timeout=.1)
+        self.arduino = serial.Serial(port='COM4', baudrate=115200, timeout=.1)
         self.arduino.readline()
 
     def write(self, x):

@@ -43,7 +43,7 @@ class SampleListener(Leap.Listener):
 
     def on_frame(self, controller):
 
-        time.sleep(0.1)
+        time.sleep(2)
         os.system('cls')
         arr = [False, False, False, False]
         # Get the most recent frame and report some basic information
@@ -105,7 +105,7 @@ class SampleListener(Leap.Listener):
 
 class UNO_Serial:
     def __init__(self):
-        self.arduino = serial.Serial(port='COM10', baudrate=115200, timeout=.1)
+        self.arduino = serial.Serial(port='COM4', baudrate=115200, timeout=.1)
         self.arduino.readline()
 
     def write(self, x):

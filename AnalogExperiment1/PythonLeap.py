@@ -49,15 +49,12 @@ class SampleListener(Leap.Listener):
 
             handType = "Left hand" if hand.is_left else "Right hand"
 
-            print "  %s, id %d, position: %s" % (
-                handType, hand.id, hand.palm_position)
+            print "  %s, id %d, position: %s" % (handType, hand.id, hand.palm_position)
         
             val = hand.palm_position[1]
             val = int((val-100)/2)
             if (val >= 0 and val <=255):
-                if val != self.valTest:
-                    UNO_Serial1.write(UNO_Serial1.inputFormart(val))
-                    self.valTest = val
+                UNO_Serial1.write(UNO_Serial1.inputFormart(val))
             else:
                 print "Out of range val = %s" % val 
             print ('PWM value: %s' % val)
@@ -106,15 +103,12 @@ class UNO_Serial:
         return outputStr
 
     def format(self,str):
-        write = False
         arrBuffer = str.split('S')
-        return arrBuffer[1:len(arrBuffer)-1]
+        return arrBuffer[1:len(arrBuffer)]
 
     def writeData(self,arrData):
         for i in arrData:
             f.write('%s\n'%i)
-        f.close
-
 
 def main():
     # Create a sample listener and controller

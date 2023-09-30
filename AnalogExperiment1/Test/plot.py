@@ -12,7 +12,7 @@ v = zenerData[:,2] - zenerData[:,1]
 fig, ax = plt.subplots()
 ax.scatter(v,i*1000, marker='.', s = 1)
 
-plt.title('1N4148 Zener diode I-V characteristics')
+plt.title('BAT85 Schottky diode I-V characteristics')
 plt.xlabel('Votage(V)')
 plt.ylabel('Current(mA)')
 plt.show()
