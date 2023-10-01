@@ -1,4 +1,4 @@
-# Contents {#contents .TOC-Heading}
+# Contents
 
 [Introduction [1](#introduction)](#introduction)
 
@@ -42,13 +42,13 @@ This experimental project is divided into two parts:
 
 1.  human-computer interface provided by Leap Motion，
 
--   API development and Leap application exploration
+- API development and Leap application exploration
 
 2.  Arduino-based analog and digital circuit experiment:
 
 > digital circuit experiment
 
--   NAND and NOR logic gate circuit
+- NAND and NOR logic gate circuit
 
 3.  Analog circuit experiment:
 
@@ -97,7 +97,7 @@ motions models.
 
 If during the installation you find the Leap motion software fails to
 detect the controller, it is very likely that the driver is not fit for
-the model you're using. Instead, you might what to try historical
+the model you’re using. Instead, you might what to try historical
 release of the driver to resolve the issues.
 
 Legacy Releases: <https://developer.leapmotion.com/releases>
@@ -111,11 +111,11 @@ We choose to use the Native Application Interface as our develop
 environment as the Arduino experiment is mainly based on Local machine
 serial port communication.
 
-![](vertopal_b97570f9929f4c5985e550063f00627a/media/image1.png){width="1.6666666666666667in"
-height="1.25in"}Leap Mothing Service functions as data collection form
-the Leap Motion controller, it tracks data via the serial port to the
-controller and process it so it's accessible to the foreground
-applications.
+<img src="vertopal_ab70a34728144b509a4f3d9a5b8d32aa/media/image1.png"
+style="width:1.66667in;height:1.25in" />Leap Mothing Service functions
+as data collection form the Leap Motion controller, it tracks data via
+the serial port to the controller and process it so it’s accessible to
+the foreground applications.
 
 Documentation on the Architecture:
 <https://developer-archive.leapmotion.com/documentation/cpp/devguide/Leap_Architecture.html>
@@ -123,27 +123,26 @@ Documentation on the Architecture:
 Leap Motion provides it own application form the IDK for testing and
 tracking preppers. It could be accessed in the Control Panel applet.
 
-![](vertopal_b97570f9929f4c5985e550063f00627a/media/image2.png){width="4.447916666666667in"
-height="2.9583333333333335in"}The Leap motion is properly connected when
-the icon is green. Otherwise, it will appear black when it not
-connected/ a undetected issue with the connection, or yellow when
-there's an error such as the controller detects smudge on the camara of
+<img src="vertopal_ab70a34728144b509a4f3d9a5b8d32aa/media/image2.png"
+style="width:4.44792in;height:2.95833in" />The Leap motion is properly
+connected when the icon is green. Otherwise, it will appear black when
+it not connected/ a undetected issue with the connection, or yellow when
+there’s an error such as the controller detects smudge on the camara of
 the controller or bandwidth of the USB connection is not sufficient.
 
 Leap Motion Diagnostics:
 <https://support.leapmotion.com/hc/en-us/articles/360004363657-Running-the-Leap-Motion-Diagnostics>
 
-Once the Leap Motion Controller is correctly settled, you'll be able to
+Once the Leap Motion Controller is correctly settled, you’ll be able to
 access the IDK embedded application for testing and debugging, !! insert
 picture
 
 Leap motion Diagnostic Visualizer provides a 3D graphic interface for
 you to intuitively the tracking results of the Leap Motion controller.
 
-![A screenshot of a video game Description automatically generated with
-medium
-confidence](vertopal_b97570f9929f4c5985e550063f00627a/media/image3.png){width="5.399219160104987in"
-height="3.444886264216973in"}
+<img src="vertopal_ab70a34728144b509a4f3d9a5b8d32aa/media/image3.png"
+style="width:5.39922in;height:3.44489in"
+alt="A screenshot of a video game Description automatically generated with medium confidence" />
 
 In this project, we use Python programming language as our development
 scrip language.
@@ -161,8 +160,8 @@ Python 2.7.0 Release: <https://www.python.org/download/releases/2.7/>
 
 <https://developer.leapmotion.com/tracking-software-download>
 
-![](vertopal_b97570f9929f4c5985e550063f00627a/media/image4.png){width="3.455999562554681in"
-height="1.6653390201224847in"}
+<img src="vertopal_ab70a34728144b509a4f3d9a5b8d32aa/media/image4.png"
+style="width:3.456in;height:1.66534in" />
 
 3.  Install Python Leap package for Leap motion.
 
@@ -171,25 +170,26 @@ Download python package:
 
 Unzip the file follow the guide:
 
-1\. Copy LeapSDK\\lib\\Leap.py to C:\\Python27\\Lib\\Leap.py
+1\. Copy LeapSDK\lib\Leap.py to C:\Python27\Lib\Leap.py
 
-2\. Copy 3 files in LeapSDK\\include (Leap.h, Leap.i, LeapMath.i) to
-C:\\Python27\\include directory
+2\. Copy 3 files in LeapSDK\include (Leap.h, Leap.i, LeapMath.i) to
+C:\Python27\include directory
 
-3\. Copy 9 files from LeapSDK\\lib\\x64 to C:\\Python27\\DLLs directory
+3\. Copy 9 files from LeapSDK\lib\x64 to C:\Python27\DLLs directory
 
 > 4\. Testing
 >
 > Try run sample in terminal:
 >
-> C:\\Python27\\python.exe \' (your SKD directory).
-> \\Python27_Leap\\Sample.py\'
+> C:\Python27\python.exe ' (your SKD directory).
+> \Python27_Leap\Sample.py'
 
-For scrip access of the Leap motion:![Text Description automatically
-generated](vertopal_b97570f9929f4c5985e550063f00627a/media/image5.png){width="6.5in"
-height="3.7375in"}
+For scrip access of the Leap
+motion:<img src="vertopal_ab70a34728144b509a4f3d9a5b8d32aa/media/image5.png"
+style="width:6.5in;height:3.7375in"
+alt="Text Description automatically generated" />
 
-Once it's correctly settled you will be able to see the tracking
+Once it’s correctly settled you will be able to see the tracking
 information form in the terminal.
 
 ### Leap motion setup Files:
@@ -210,27 +210,27 @@ callback:
 Then, print out some properties of
 the [**Frame**](https://developer-archive.leapmotion.com/documentation/python/api/Leap.Frame.html) object:
 
-        print \"Frame id: %d, timestamp: %d, hands: %d, fingers: %d,
-tools: %d, gestures: %d\" % (
+        print "Frame id: %d, timestamp: %d, hands: %d, fingers: %d,
+tools: %d, gestures: %d" % (
 
               frame.id, frame.timestamp, len(frame.hands),
 len(frame.fingers), len(frame.tools), len(frame.gestures()))
 
-Similarly, to access hands, fingers etc\... You need to call the
+Similarly, to access hands, fingers etc... You need to call the
 corresponding class following the syntax:
 
         for hand in frame.hands:
 
-            handType = \"Left hand\" if hand.is_left else \"Right hand\"
+            handType = "Left hand" if hand.is_left else "Right hand"
 
-            print \"  %s, id %d, position: %s\" % (
+            print "  %s, id %d, position: %s" % (
 
                 handType, hand.id, hand.palm_position)
 
             for finger in hand.fingers:
 
-                print \"    %s finger, id: %d, length: %fmm, width:
-%fmm\" % (
+                print "    %s finger, id: %d, length: %fmm, width: %fmm"
+% (
 
                     self.finger_names\[finger.type\],
 
@@ -259,7 +259,7 @@ def main():
 
     global f
 
-    f = open(\'AnalogExperiment1//Test//1N4148.csv\',\'a+\')
+    f = open('AnalogExperiment1//Test//1N4148.csv','a+')
 
     global UNO_Serial1
 
@@ -275,7 +275,7 @@ def main():
 
     \# Keep this process running until Enter is pressed
 
-    print \"Press Enter to quit\...\"
+    print "Press Enter to quit..."
 
     try:
 
@@ -303,7 +303,7 @@ experimented with sockets-based communication.
 Serial port communication is commonly used between Arduino board and
 computer. All Arduino boards have at least one serial port. To enable
 communication between the Leap motion controller, we need to configure
-both sides' scripts to establish the communication.
+both sides’ scripts to establish the communication.
 
 On the PC side, Pyserial needs to be manually installed on your python
 2.7, as pip no longer supports Python 2.7 since Jan 2022
@@ -313,14 +313,14 @@ Download pyserial-3.4.tar.gz form pyserial.PyPI
 Pyserial 3.4 Download:
 [https://pypi.org/project/pyserial/3.4/#files](https://pypi.org/project/pyserial/3.4/%23files)
 
-Unzip the folder pyserial-3.4 to c:\\Python27\\Lib\\site-packages
+Unzip the folder pyserial-3.4 to c:\Python27\Lib\site-packages
 
 Open a command window (Start -\> All Programs -\> Accessories -\>
 Command Prompt) and type into the command line: cd
-c:\\Python27\\Lib\\site-packages\\pyserial-2.6
+c:\Python27\Lib\site-packages\pyserial-2.6
 
 Install pySerial by typing this command (including the path):
-c:\\Python27\\python.exe setup.py install
+c:\Python27\python.exe setup.py install
 
 In this project, we created a finite State Machine (FSM) to test and
 implement the API. To make to code more modular and readable, a separate
@@ -334,7 +334,7 @@ class UNO_Serial:
 
     def \_\_init\_\_(self):
 
-        self.arduino = serial.Serial(port=\'COM3\', baudrate=115200,
+        self.arduino = serial.Serial(port='COM3', baudrate=115200,
 timeout=.1)
 
         self.arduino.readline()
@@ -344,11 +344,11 @@ stream and send it via the serial port:
 
     def write(self, x):
 
-        self.arduino.write(bytes(x, \'ASCII\'))
+        self.arduino.write(bytes(x, 'ASCII'))
 
         time.sleep(0.01)
 
-inputFormart covers the Input to ''\$ + number" format, \$ is used as an
+inputFormart covers the Input to ‘’\$ + number” format, \$ is used as an
 identified for the FSM to recognize a new coming command.
 
 To start the serial port:
@@ -376,11 +376,11 @@ int serialRead()
 
     char c = Serial.read();
 
-    if (c == \'\$\')
+    if (c == '\$')
 
     {
 
-      Serial.println(\"\'\$\'Received\");
+      Serial.println("'\$'Received");
 
       char c = Serial.read();
 
@@ -396,8 +396,8 @@ int serialRead()
 
 }
 
-SerialRead constantly scans the serial buffer and once there's data
-starting with "\$", it'll strip the "\$" and return the rest of the data
+SerialRead constantly scans the serial buffer and once there’s data
+starting with “\$”, it’ll strip the “\$” and return the rest of the data
 as an integer.
 
 Code of the FSM:
@@ -405,12 +405,12 @@ Code of the FSM:
 
 #### Based on sockets.
 
-![](vertopal_b97570f9929f4c5985e550063f00627a/media/image6.jpeg){width="1.3319444444444444in"
-height="2.8618055555555557in"}In the Gestures project, we tested a
-network-based connection based on sockets protocol. Socket protocol is
-based on TCP/IP protocol, it provides a level of abstraction toward the
-TCP protocol, so that the user only needs to configure the IP address
-and network port to achieve data transmission.
+<img src="vertopal_ab70a34728144b509a4f3d9a5b8d32aa/media/image6.jpeg"
+style="width:1.33194in;height:2.86181in" />In the Gestures project, we
+tested a network-based connection based on sockets protocol. Socket
+protocol is based on TCP/IP protocol, it provides a level of abstraction
+toward the TCP protocol, so that the user only needs to configure the IP
+address and network port to achieve data transmission.
 
 As this experiment requires a Wi-Fi module, an esp32 unite with an
 onboard OLED is used. The esp32 MCU supports Wi-fi connectivity, and the
@@ -422,7 +422,7 @@ Gestures.py:
 <https://github.com/pcyco1/Python27_Leap_test/blob/master/LeapCode/Gestures.py>
 
 Gestuers.py uses the Gestures tools provide by leap motion to detect
-user's hand gesture. The code detects user gesture and send a message of
+user’s hand gesture. The code detects user gesture and send a message of
 the gesture to an MCU (microcontroller unit) with wi-fi connectivity and
 OLED display.
 
@@ -438,7 +438,7 @@ class espSocket:
 
     sock=0
 
-    stCompar = \'\'
+    stCompar = ''
 
     def \_\_init\_\_(self,espSocketConfig):
 
@@ -450,18 +450,18 @@ class espSocket:
 
         self.sock = socket.socket()
 
-        print(\'Networkconfig: \'+str(self.espSocketConfig)+\'
-Connecting\...\')
+        print('Networkconfig: '+str(self.espSocketConfig)+'
+Connecting...')
 
         try:
 
             self.sock.connect((self.espSocketConfig))
 
-            print(\"Socket connection successful\")
+            print("Socket connection successful")
 
         except:
 
-            print(\"Socket connection failed\")
+            print("Socket connection failed")
 
    
 
@@ -469,9 +469,9 @@ Connecting\...\')
 
         if st != self.stCompar:
 
-            self.sock.sendall(bytes(\"\$%s\" % st))
+            self.sock.sendall(bytes("\$%s" % st))
 
-            print(\"sent:%s\"%st)
+            print("sent:%s"%st)
 
             self.stCompar = st
 
@@ -479,8 +479,7 @@ def main():
 
     global espSocket8266
 
-    espSocket8266 =
-espSocket(espSocketConfig=(\'192.168.31.154\',8080))#
+    espSocket8266 = espSocket(espSocketConfig=('192.168.31.154',8080))#
 
     espSocket8266.espSocket_start()
 
@@ -502,7 +501,7 @@ OLEDTextDisplay.ino:
 OLEDTextDisplay.ino contains the Arduino side of the code. The setup
 function contains the setup for both the OLED display and the Wi-Fi
 module, the loop function monitors the buffer of the Wi-Fi incoming
-data, and display the data on the OLED when there's no new data
+data, and display the data on the OLED when there’s no new data
 available.
 
 # Arduino-based analog and digital circuit experiments
@@ -536,14 +535,14 @@ A sample of the hand detection is attached:
 To ensure the only process data when 2 hands are detected and aways
 start form the hand at right most side
 
-            print\"Right most hand\"
+            print"Right most hand"
 
             for finger in hand.fingers:
 
-                if self.finger_names\[finger.type\] == \"Index\":
+                if self.finger_names\[finger.type\] == "Index":
 
-                    print \"    %s finger, id: %d, length: %fmm, width:
-%fmm\" % (self.finger_names\[finger.type\], finger.id, finger.length,
+                    print "    %s finger, id: %d, length: %fmm, width:
+%fmm" % (self.finger_names\[finger.type\], finger.id, finger.length,
 finger.width)
 
 The line above illiterate though all the fingers and identify the index
@@ -551,7 +550,7 @@ and middle fingers.
 
                     bone = finger.bone(3)
 
-                    print \"      Bone: %s, direction: %s\" %
+                    print "      Bone: %s, direction: %s" %
 (self.bone_names\[bone.type\], degrees(acos(bone.direction\[2\])))
 
                     if degrees(acos(bone.direction\[2\])) \> 45:
@@ -585,50 +584,48 @@ program
 
            
 
-At the end of the code, we convers the 4 bit 'arr' array to a integer
-value 'val' and send to though the API developed earlier.
+At the end of the code, we convers the 4 bit ‘arr’ array to a integer
+value ‘val’ and send to though the API developed earlier.
 
 In the Arduino side, an FSM is implemented. The FSM uses a switch case
 statement, it contains a base case 0, and 15 cases of 4 pin output form
-1 -- 15
+1 – 15
 
 In Arduino the common way to implement FSM is to use the case switch
 statement.
 
 In this project, we use the enumerator to declare all the states (line
-24 -- 43 FSM_Demo_2) and use a case switch statement to navigate though
+24 – 43 FSM_Demo_2) and use a case switch statement to navigate though
 all the stats in the FSM(line 74 - 403).
 
 FSM_Demo_2.ino:
 <https://github.com/pcyco1/Python27_Leap_test/blob/master/FSM_C_TestCode/FSM_Demo_2/FSM_Demo_2.ino>
 
-![](vertopal_b97570f9929f4c5985e550063f00627a/media/image7.png){width="4.245138888888889in"
-height="1.5694444444444444in"}The logic gate circuit wiring is
-demonstrated in the diagram below![Diagram, schematic Description
-automatically
-generated](vertopal_b97570f9929f4c5985e550063f00627a/media/image8.png){width="4.20245406824147in"
-height="1.6256944444444446in"}
+<img src="vertopal_ab70a34728144b509a4f3d9a5b8d32aa/media/image7.png"
+style="width:4.24514in;height:1.56944in" />The logic gate circuit wiring
+is demonstrated in the diagram
+below<img src="vertopal_ab70a34728144b509a4f3d9a5b8d32aa/media/image8.png"
+style="width:4.20245in;height:1.62569in"
+alt="Diagram, schematic Description automatically generated" />
 
 SN74HC00N (NAND) and SN74HC02N (NOR) is selected in this project.
 
 Before the construction of the circuit a simulation is run to ensure the
 expected result:
 
-![A picture containing table Description automatically
-generated](vertopal_b97570f9929f4c5985e550063f00627a/media/image9.png){width="6.19369750656168in"
-height="2.267713254593176in"}![A picture containing chart Description
-automatically
-generated](vertopal_b97570f9929f4c5985e550063f00627a/media/image10.png){width="6.186046587926509in"
-height="2.347525153105862in"}
+<img src="vertopal_ab70a34728144b509a4f3d9a5b8d32aa/media/image9.png"
+style="width:6.1937in;height:2.26771in"
+alt="A picture containing table Description automatically generated" /><img src="vertopal_ab70a34728144b509a4f3d9a5b8d32aa/media/image10.png"
+style="width:6.18605in;height:2.34753in"
+alt="A picture containing chart Description automatically generated" />
 
 The circuit is constracted as the picture, an LCD montor is added for
 both show the FSM state and display the reading form the digital read
 port.
 
-![A close-up of a circuit board Description automatically generated with
-medium
-confidence](vertopal_b97570f9929f4c5985e550063f00627a/media/image11.jpeg){width="3.407638888888889in"
-height="5.275in"}
+<img src="vertopal_ab70a34728144b509a4f3d9a5b8d32aa/media/image11.jpeg"
+style="width:3.40764in;height:5.275in"
+alt="A close-up of a circuit board Description automatically generated with medium confidence" />
 
 ## Analogue experiment
 
@@ -655,12 +652,12 @@ separate environment (highlighted in blue).
 
                 swipe = SwipeGesture(gesture)
 
-                print \"  Swipe id: %d, state: %s, position: %s,
-direction: %s, speed: %f\" % (gesture.id,
+                print "  Swipe id: %d, state: %s, position: %s,
+direction: %s, speed: %f" % (gesture.id,
 self.state_names\[gesture.state\],swipe.position, swipe.direction,
 swipe.speed)
 
-                self.frameInfo = \"swipe\"
+                self.frameInfo = "swipe"
 
                 self.plotData()
 
@@ -670,7 +667,7 @@ swipe.speed)
 
         f.close
 
-        os.system(\'python AnalogExperiment1\\Test\\plot.py\')
+        os.system('python AnalogExperiment1\Test\plot.py')
 
         pass
 
@@ -686,8 +683,8 @@ import matplotlib.pyplot as plt
 
 import numpy as np
 
-zenerData = np.loadtxt(\'AnalogExperiment1//Test//1N4148.csv\',
-delimiter=\',\')
+zenerData = np.loadtxt('AnalogExperiment1//Test//1N4148.csv',
+delimiter=',')
 
 zenerData\[:,1\] = zenerData\[:,1\] \* 0.0048828125
 
@@ -699,13 +696,13 @@ v = zenerData\[:,2\] - zenerData\[:,1\]
 
 fig, ax = plt.subplots()
 
-ax.scatter(v,i\*1000, marker=\'.\', s = 1)
+ax.scatter(v,i\*1000, marker='.', s = 1)
 
-plt.title(\'1N4148 Zener diode I-V characteristics\')
+plt.title('1N4148 Zener diode I-V characteristics')
 
-plt.xlabel(\'Votage(V)\')
+plt.xlabel('Votage(V)')
 
-plt.ylabel(\'Current(mA)\')
+plt.ylabel('Current(mA)')
 
 plt.show()
 
@@ -714,9 +711,9 @@ Plot code:
 
         for hand in frame.hands:
 
-            handType = \"Left hand\" if hand.is_left else \"Right hand\"
+            handType = "Left hand" if hand.is_left else "Right hand"
 
-            print \"  %s, id %d, position: %s\" % (
+            print "  %s, id %d, position: %s" % (
 
                 handType, hand.id, hand.palm_position)
 
@@ -736,9 +733,9 @@ Plot code:
 
             else:
 
-                print \"Out of range val = %s\" % val
+                print "Out of range val = %s" % val
 
-            print (\'PWM value: %s\' % val)
+            print ('PWM value: %s' % val)
 
             dataArry = UNO_Serial1.format(UNO_Serial1.arduino.read(100))
 
@@ -749,8 +746,8 @@ Plot code:
 The highlighted part (Blue) of the code extracts the palm position form
 the hand object and convert the value to change the range of the
 triggering position. When the vale of the converted palm position is
-within 0 -- 255, the value is sent through the serial port to the
-Arduino board to set the PWM value.
+within 0 – 255, the value is sent through the serial port to the Arduino
+board to set the PWM value.
 
 The Arduino part uses pin 6 as the PWM output and analog A1 and A0 as
 the measuring pin for the voltage drop across the diode, A1 and A0 is
@@ -764,38 +761,36 @@ separated from the DC conversion circuit, and the output is also
 insulated by another LM324 op-amp, the PWM to DC conversion circuit uses
 a simple RC circuit to flatten the PWM signal.
 
-![](vertopal_b97570f9929f4c5985e550063f00627a/media/image12.png){width="6.5in"
-height="2.629861111111111in"}![Chart Description automatically
-generated](vertopal_b97570f9929f4c5985e550063f00627a/media/image13.png){width="5.142205818022747in"
-height="6.184930008748906in"}
+<img src="vertopal_ab70a34728144b509a4f3d9a5b8d32aa/media/image12.png"
+style="width:6.5in;height:2.62986in" /><img src="vertopal_ab70a34728144b509a4f3d9a5b8d32aa/media/image13.png"
+style="width:5.14221in;height:6.18493in"
+alt="Chart Description automatically generated" />
 
 The finished circuit construction is shown:
 
-![A picture containing text, electronics, circuit Description
-automatically
-generated](vertopal_b97570f9929f4c5985e550063f00627a/media/image14.jpeg){width="3.366771653543307in"
-height="4.48830927384077in"}
+<img src="vertopal_ab70a34728144b509a4f3d9a5b8d32aa/media/image14.jpeg"
+style="width:3.36677in;height:4.48831in"
+alt="A picture containing text, electronics, circuit Description automatically generated" />
 
 The ADC the result matches the expected output characteristics, but with
 inaccuracy.
 
-![](vertopal_b97570f9929f4c5985e550063f00627a/media/image15.png){width="3.615845363079615in"
-height="3.129869860017498in"}![Chart, scatter chart Description
-automatically
-generated](vertopal_b97570f9929f4c5985e550063f00627a/media/image16.png){width="3.656560586176728in"
-height="3.1643318022747158in"}
+<img src="vertopal_ab70a34728144b509a4f3d9a5b8d32aa/media/image15.png"
+style="width:3.61585in;height:3.12987in" /><img src="vertopal_ab70a34728144b509a4f3d9a5b8d32aa/media/image16.png"
+style="width:3.65656in;height:3.16433in"
+alt="Chart, scatter chart Description automatically generated" />
 
 Although we can clearly see the correct line I-V form the scatter plot
-for both diode, there's a line above the expected line that might be
+for both diode, there’s a line above the expected line that might be
 caused by some error. This inaccuracy might be caused by the variation
 in the refence power supply voltage.
 
 As a compensation and reference for the experiment, a complementary
 simulation is done to show the expected results:
 
-![Chart, line chart Description automatically
-generated](vertopal_b97570f9929f4c5985e550063f00627a/media/image17.png){width="6.5in"
-height="3.3847222222222224in"}
+<img src="vertopal_ab70a34728144b509a4f3d9a5b8d32aa/media/image17.png"
+style="width:6.5in;height:3.38472in"
+alt="Chart, line chart Description automatically generated" />
 
 # Conclusion
 
