@@ -149,7 +149,7 @@ style="width:3.456in;height:1.66534in" />
 3.  Install Python Leap package for Leap motion.
 
 Download python package:
-<https://github.com/pcyco1/Python27_Leap_test/blob/master/Python27_Leap.rar>
+<https://github.com/Qinyuan72/Python27_Leap_test/blob/master/Python27_Leap.rar>
 
 Unzip the file follow the guide:
 
@@ -356,7 +356,7 @@ starting with “\$”, it’ll strip the “\$” and return the rest of the da
 as an integer.
 
 Code of the FSM:
-<https://github.com/pcyco1/Python27_Leap_test/tree/master/FSM_C_TestCode>
+<https://github.com/Qinyuan72/Python27_Leap_test/tree/master/FSM_C_TestCode>
 
 #### Based on sockets.
 
@@ -374,7 +374,7 @@ OLED is used to display information and debug.
 In this project we tested 2 projects based on socket protocol:
 
 Gestures.py:
-<https://github.com/pcyco1/Python27_Leap_test/blob/master/LeapCode/Gestures.py>
+<https://github.com/Qinyuan72/Python27_Leap_test/blob/master/LeapCode/Gestures.py>
 
 Gestuers.py uses the Gestures tools provide by leap motion to detect
 user’s hand gesture. The code detects user gesture and send a message of
@@ -382,7 +382,7 @@ the gesture to an MCU (microcontroller unit) with wi-fi connectivity and
 OLED display.
 
 HandsAndFingers.py:
-<https://github.com/pcyco1/Python27_Leap_test/blob/master/LeapCode/HandsAndFingers.py>
+<https://github.com/Qinyuan72/Python27_Leap_test/blob/master/LeapCode/HandsAndFingers.py>
 
 HandsAndFingers.py is a project introduced to familiarize myself with
 Leap motion environment, it detects the left/right hands and give the
@@ -438,7 +438,7 @@ espSocket8266.socket_send(espSocket8266.LCD_str_inputmaker(framInfo))
 line 64, HandsAndFingers.py:
 
 OLEDTextDisplay.ino:
-<https://github.com/pcyco1/Python27_Leap_test/blob/master/ESP32_OLED/OLEDTextDisplay/OLEDTextDisplay.ino>
+<https://github.com/Qinyuan72/Python27_Leap_test/blob/master/ESP32_OLED/OLEDTextDisplay/OLEDTextDisplay.ino>
 
 OLEDTextDisplay.ino contains the Arduino side of the code. The setup
 function contains the setup for both the OLED display and the Wi-Fi
@@ -541,7 +541,7 @@ In this project, we use the enumerator to declare all the states (line
 all the stats in the FSM(line 74 - 403).
 
 FSM_Demo_2.ino:
-<https://github.com/pcyco1/Python27_Leap_test/blob/master/FSM_C_TestCode/FSM_Demo_2/FSM_Demo_2.ino>
+<https://github.com/Qinyuan72/Python27_Leap_test/blob/master/FSM_C_TestCode/FSM_Demo_2/FSM_Demo_2.ino>
 
 <img src="vertopal_ab70a34728144b509a4f3d9a5b8d32aa/media/image7.png"
 style="width:4.24514in;height:1.56944in" />The logic gate circuit wiring
@@ -614,7 +614,7 @@ swipe.speed)
         pass
 
 line 68 -81:
-<https://github.com/pcyco1/Python27_Leap_test/blob/master/AnalogExperiment1/PythonLeap.py>
+<https://github.com/Qinyuan72/Python27_Leap_test/blob/master/AnalogExperiment1/PythonLeap.py>
 
 The plot code imports a CSV file saved by the leap motion code and
 calculate the voltage and current to plot an I-v
@@ -649,7 +649,7 @@ calculate the voltage and current to plot an I-v
     plt.show()
 
 Plot code:
-<https://github.com/pcyco1/Python27_Leap_test/blob/master/AnalogExperiment1/Test/plot.py>
+<https://github.com/Qinyuan72/Python27_Leap_test/blob/master/AnalogExperiment1/Test/plot.py>
 
         for hand in frame.hands:
 
