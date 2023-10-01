@@ -1,37 +1,20 @@
 # Contents
 
-[Introduction [1](#introduction)](#introduction)
 
-[Leap Motion [2](#leap-motion)](#leap-motion)
+1.Introduction
+2.Leap Motion
+  - Construction of development environment	
+  - Understanding Leap Motion Architecture and setup	
+  - Leap motion setup Files:	
+  - API construction:
+3. Arduino-based analog and digital circuit experiments	
+    - digital circuit experiment	
+    - Nand and Nor logic gate circuit	
+4. Analogue experiment
+    - Leap Motion controlled diode I-V characteristic experiment.	
+5. Conclusion
 
-[Construction of development environment
-[2](#construction-of-development-environment)](#construction-of-development-environment)
 
-[Understanding Leap Motion Architecture and setup
-[2](#understanding-leap-motion-architecture-and-setup)](#understanding-leap-motion-architecture-and-setup)
-
-[Leap motion setup Files:
-[5](#leap-motion-setup-files)](#leap-motion-setup-files)
-
-[API construction: [7](#api-construction)](#api-construction)
-
-[Arduino-based analog and digital circuit experiments
-[9](#arduino-based-analog-and-digital-circuit-experiments)](#arduino-based-analog-and-digital-circuit-experiments)
-
-[digital circuit experiment
-[9](#digital-circuit-experiment)](#digital-circuit-experiment)
-
-[Nand and Nor logic gate circuit
-[9](#nand-and-nor-logic-gate-circuit)](#nand-and-nor-logic-gate-circuit)
-
-[Analogue experiment [13](#analogue-experiment)](#analogue-experiment)
-
-[Leap Motion controlled diode I-V characteristic experiment.
-[13](#leap-motion-controlled-diode-i-v-characteristic-experiment.)](#leap-motion-controlled-diode-i-v-characteristic-experiment.)
-
-[Conclusion [18](#conclusion)](#conclusion)
-
-Project Technical Report
 
 # Introduction
 
@@ -42,17 +25,17 @@ This experimental project is divided into two parts:
 
 1.  human-computer interface provided by Leap Motion，
 
-- API development and Leap application exploration
+  - API development and Leap application exploration
 
 2.  Arduino-based analog and digital circuit experiment:
 
-> digital circuit experiment
+  - digital circuit experiment
 
-- NAND and NOR logic gate circuit
+  - NAND and NOR logic gate circuit
 
-3.  Analog circuit experiment:
+  - Analog circuit experiment:
 
-Leap Motion controlled diode I-V characteristic experiment.
+  - Leap Motion controlled diode I-V characteristic experiment.
 
 # Leap Motion
 
@@ -82,7 +65,7 @@ the method to work in my favor and got the results I needed.
 
 Installation The installation process is as follows:
 
-#### download
+#### 1. download
 
 The Leap Motion development environment is developed based on python2,
 since python stopped supporting python2 in January 2020.
@@ -102,7 +85,7 @@ release of the driver to resolve the issues.
 
 Legacy Releases: <https://developer.leapmotion.com/releases>
 
-### Understanding Leap Motion Architecture and setup
+### 2. Understanding Leap Motion Architecture and setup
 
 Leap motion provides two types of Architecture: Native Application
 Interface and WebSocket Interface.
@@ -166,7 +149,7 @@ style="width:3.456in;height:1.66534in" />
 3.  Install Python Leap package for Leap motion.
 
 Download python package:
-<https://github.com/Qinyuan72/Python27_Leap_test/blob/master/Python27_Leap.rar>
+<https://github.com/pcyco1/Python27_Leap_test/blob/master/Python27_Leap.rar>
 
 Unzip the file follow the guide:
 
@@ -201,52 +184,46 @@ Leap motion tracks data on a per frame basis, to access the current
 frame you need to add this call to frame() to your \|Listener_onFrame\|
 callback:
 
-    def on_frame(self, controller):
-
-        \# Get the most recent frame and report some basic information
-
-        frame = controller.frame()
+def on_frame(self, controller):
+    # Get the most recent frame and report some basic information
+    frame = controller.frame()
 
 Then, print out some properties of
-the [**Frame**](https://developer-archive.leapmotion.com/documentation/python/api/Leap.Frame.html) object:
+the [**Frame**](https://developer-archive.leapmotion.com/documentation/python/api/Leap.Frame.html) object:
 
-        print "Frame id: %d, timestamp: %d, hands: %d, fingers: %d,
-tools: %d, gestures: %d" % (
-
-              frame.id, frame.timestamp, len(frame.hands),
-len(frame.fingers), len(frame.tools), len(frame.gestures()))
+            print "Frame id: %d, timestamp: %d, hands: %d, fingers: %d,
+    tools: %d, gestures: %d" % (frame.id, frame.timestamp, len(frame.hands),
+    len(frame.fingers), len(frame.tools), len(frame.gestures()))
 
 Similarly, to access hands, fingers etc... You need to call the
 corresponding class following the syntax:
 
-        for hand in frame.hands:
-
-            handType = "Left hand" if hand.is_left else "Right hand"
-
-            print "  %s, id %d, position: %s" % (
-
-                handType, hand.id, hand.palm_position)
-
-            for finger in hand.fingers:
-
-                print "    %s finger, id: %d, length: %fmm, width: %fmm"
-% (
-
-                    self.finger_names\[finger.type\],
-
-                    finger.id,
-
-                    finger.length,
-
-                    finger.width)
+            for hand in frame.hands:
+                handType = "Left hand" if hand.is_left else "Right hand"
+                print "  %s, id %d, position: %s" % (
+    
+                    handType, hand.id, hand.palm_position)
+    
+                for finger in hand.fingers:
+    
+                    print "    %s finger, id: %d, length: %fmm, width: %fmm"
+    % (
+    
+                        self.finger_names\[finger.type\],
+    
+                        finger.id,
+    
+                        finger.length,
+    
+                        finger.width)
 
 To access gestures, use the syntax as follows:
 
-        for gesture in frame.gestures():
+        for gesture in frame.gestures():
 
-            if gesture.type == Leap.Gesture.TYPE_CIRCLE:
+            if gesture.type == Leap.Gesture.TYPE_CIRCLE:
 
-                circle = CircleGesture(gesture)
+                circle = CircleGesture(gesture)
 
 The main function contains the setup for the listener and controller
 object to support the function of Leap Motion, in future project, we
@@ -255,41 +232,41 @@ connection here:
 
 def main():
 
-    \# Create a sample listener and controller
+    \# Create a sample listener and controller
 
-    global f
+    global f
 
-    f = open('AnalogExperiment1//Test//1N4148.csv','a+')
+    f = open('AnalogExperiment1//Test//1N4148.csv','a+')
 
-    global UNO_Serial1
+    global UNO_Serial1
 
-    UNO_Serial1 = UNO_Serial()
+    UNO_Serial1 = UNO_Serial()
 
-    listener = SampleListener()
+    listener = SampleListener()
 
-    controller = Leap.Controller()
+    controller = Leap.Controller()
 
-    \# Have the sample listener receive events from the controller
+    \# Have the sample listener receive events from the controller
 
-    controller.add_listener(listener)
+    controller.add_listener(listener)
 
-    \# Keep this process running until Enter is pressed
+    \# Keep this process running until Enter is pressed
 
-    print "Press Enter to quit..."
+    print "Press Enter to quit..."
 
-    try:
+    try:
 
-        sys.stdin.readline()
+        sys.stdin.readline()
 
-    except KeyboardInterrupt:
+    except KeyboardInterrupt:
 
-        pass
+        pass
 
-    finally:
+    finally:
 
-        \# Remove the sample listener when done
+        \# Remove the sample listener when done
 
-        controller.remove_listener(listener)
+        controller.remove_listener(listener)
 
 ### API construction:
 
@@ -330,78 +307,56 @@ implementation in the Leap Motion scripts.
 The def \_\_init\_\_(self): helps configure the open and configure
 Serial port
 
-class UNO_Serial:
-
-    def \_\_init\_\_(self):
-
-        self.arduino = serial.Serial(port='COM3', baudrate=115200,
-timeout=.1)
-
-        self.arduino.readline()
+    class UNO_Serial:
+        def \_\_init\_\_(self):
+            self.arduino = serial.Serial(port='COM3', baudrate=115200,timeout=.1)
+	        self.arduino.readline()
 
 The write function converts the input string to an ASCII encoded binary
 stream and send it via the serial port:
 
-    def write(self, x):
-
-        self.arduino.write(bytes(x, 'ASCII'))
-
-        time.sleep(0.01)
+    def write(self, x):
+        self.arduino.write(bytes(x, 'ASCII'))
+        time.sleep(0.01)
 
 inputFormart covers the Input to ‘’\$ + number” format, \$ is used as an
 identified for the FSM to recognize a new coming command.
 
 To start the serial port:
 
-def main():
-
-    global UNO_Serial1
-
-    UNO_Serial1 = UNO_Serial()
+    def main():
+        global UNO_Serial1
+        UNO_Serial1 = UNO_Serial()
 
 In the Arduino code:
 
-Serial.begin(115200);
+    Serial.begin(115200);
 
 The setup line for Arduino to open its serial port and set the baud rate
 to 115200.
 
-int serialRead()
-
-{
-
-  while (Serial.available() \> 0)
-
-  {
-
-    char c = Serial.read();
-
-    if (c == '\$')
-
-    {
-
-      Serial.println("'\$'Received");
-
-      char c = Serial.read();
-
-      c = c - 48;
-
-      return c;
-
-      Serial.println(c);
-
-    }
-
-  }
-
-}
+    int serialRead()
+    {
+      while (Serial.available() \> 0)
+      {
+        char c = Serial.read();
+        if (c == '\$')
+        {
+          Serial.println("'\$'Received");
+          char c = Serial.read();
+          c = c - 48;
+          return c;
+          Serial.println(c);
+        }
+      }
+    }
 
 SerialRead constantly scans the serial buffer and once there’s data
 starting with “\$”, it’ll strip the “\$” and return the rest of the data
 as an integer.
 
 Code of the FSM:
-<https://github.com/Qinyuan72/Python27_Leap_test/tree/master/FSM_C_TestCode>
+<https://github.com/pcyco1/Python27_Leap_test/tree/master/FSM_C_TestCode>
 
 #### Based on sockets.
 
@@ -419,7 +374,7 @@ OLED is used to display information and debug.
 In this project we tested 2 projects based on socket protocol:
 
 Gestures.py:
-<https://github.com/Qinyuan72/Python27_Leap_test/blob/master/LeapCode/Gestures.py>
+<https://github.com/pcyco1/Python27_Leap_test/blob/master/LeapCode/Gestures.py>
 
 Gestuers.py uses the Gestures tools provide by leap motion to detect
 user’s hand gesture. The code detects user gesture and send a message of
@@ -427,61 +382,48 @@ the gesture to an MCU (microcontroller unit) with wi-fi connectivity and
 OLED display.
 
 HandsAndFingers.py:
-<https://github.com/Qinyuan72/Python27_Leap_test/blob/master/LeapCode/HandsAndFingers.py>
+<https://github.com/pcyco1/Python27_Leap_test/blob/master/LeapCode/HandsAndFingers.py>
 
 HandsAndFingers.py is a project introduced to familiarize myself with
 Leap motion environment, it detects the left/right hands and give the
 total number of fingers detects by the Leap motion controller. And use
 the same code to deliver a message to the MCU as Gestures.py.
 
-class espSocket:
-
-    sock=0
-
-    stCompar = ''
-
-    def \_\_init\_\_(self,espSocketConfig):
-
-        self.espSocketConfig = espSocketConfig
-
-   
-
-    def espSocket_start(self):
-
-        self.sock = socket.socket()
-
-        print('Networkconfig: '+str(self.espSocketConfig)+'
-Connecting...')
-
-        try:
-
-            self.sock.connect((self.espSocketConfig))
-
-            print("Socket connection successful")
-
-        except:
-
-            print("Socket connection failed")
-
-   
-
-    def socket_send(self,st):
-
-        if st != self.stCompar:
-
-            self.sock.sendall(bytes("\$%s" % st))
-
-            print("sent:%s"%st)
-
-            self.stCompar = st
-
-def main():
-
-    global espSocket8266
-
-    espSocket8266 = espSocket(espSocketConfig=('192.168.31.154',8080))#
-
-    espSocket8266.espSocket_start()
+    class espSocket:
+    
+        sock=0
+    
+        stCompar = ''
+    
+        def \_\_init\_\_(self,espSocketConfig):
+    
+            self.espSocketConfig = espSocketConfig
+    
+       
+    
+        def espSocket_start(self):
+    
+            self.sock = socket.socket()
+    
+            print('Networkconfig: '+str(self.espSocketConfig)+'
+    Connecting...')
+            try:
+                self.sock.connect((self.espSocketConfig))
+                print("Socket connection successful")
+            except:
+                print("Socket connection failed")
+       
+    
+        def socket_send(self,st):
+            if st != self.stCompar:
+                self.sock.sendall(bytes("\$%s" % st))
+                print("sent:%s"%st)
+                self.stCompar = st
+    
+    def main():
+        global espSocket8266
+        espSocket8266 = espSocket(espSocketConfig=('192.168.31.154',8080))#
+        espSocket8266.espSocket_start()
 
 The structure of the socketAPI is similar with the serial API. An new
 class made to handle the configuration of the socket connection and data
@@ -496,7 +438,7 @@ espSocket8266.socket_send(espSocket8266.LCD_str_inputmaker(framInfo))
 line 64, HandsAndFingers.py:
 
 OLEDTextDisplay.ino:
-<https://github.com/Qinyuan72/Python27_Leap_test/blob/master/ESP32_OLED/OLEDTextDisplay/OLEDTextDisplay.ino>
+<https://github.com/pcyco1/Python27_Leap_test/blob/master/ESP32_OLED/OLEDTextDisplay/OLEDTextDisplay.ino>
 
 OLEDTextDisplay.ino contains the Arduino side of the code. The setup
 function contains the setup for both the OLED display and the Wi-Fi
@@ -528,36 +470,36 @@ digital input pins of Arduino as the input value and display it on a
 
 A sample of the hand detection is attached:
 
-        if len(frame.hands) == 2:
+        if len(frame.hands) == 2:
 
-            hand = frame.hands.rightmost
+            hand = frame.hands.rightmost
 
 To ensure the only process data when 2 hands are detected and aways
 start form the hand at right most side
 
-            print"Right most hand"
+            print"Right most hand"
 
-            for finger in hand.fingers:
+            for finger in hand.fingers:
 
-                if self.finger_names\[finger.type\] == "Index":
+                if self.finger_names\[finger.type\] == "Index":
 
-                    print "    %s finger, id: %d, length: %fmm, width:
+                    print "    %s finger, id: %d, length: %fmm, width:
 %fmm" % (self.finger_names\[finger.type\], finger.id, finger.length,
 finger.width)
 
 The line above illiterate though all the fingers and identify the index
 and middle fingers.
 
-                    bone = finger.bone(3)
+                    bone = finger.bone(3)
 
-                    print "      Bone: %s, direction: %s" %
+                    print "      Bone: %s, direction: %s" %
 (self.bone_names\[bone.type\], degrees(acos(bone.direction\[2\])))
 
-                    if degrees(acos(bone.direction\[2\])) \> 45:
+                    if degrees(acos(bone.direction\[2\])) \> 45:
 
-                        arr\[1\] = True
+                        arr\[1\] = True
 
-            hand = frame.hands.rightmost
+            hand = frame.hands.rightmost
 
 The line marked yellow access the Distal phalanges of the finger, The
 line marked read calculate the angle between the direction vector and
@@ -568,21 +510,21 @@ toggling the bit will be stored as Boole value true, the 4bit array will
 be converted to an integer and send to the Arduino in the end of the
 program
 
-        b = arr
+        b = arr
 
-        val = reduce(lambda byte, bit: byte\*2 + bit, b, 0)
+        val = reduce(lambda byte, bit: byte\*2 + bit, b, 0)
 
-        print val
+        print val
 
-        if val != self.valTest:
+        if val != self.valTest:
 
-            UNO_Serial1.write(UNO_Serial1.inputFormart(17))
+            UNO_Serial1.write(UNO_Serial1.inputFormart(17))
 
-            UNO_Serial1.write(UNO_Serial1.inputFormart(val))
+            UNO_Serial1.write(UNO_Serial1.inputFormart(val))
 
-            self.valTest = val
+            self.valTest = val
 
-           
+           
 
 At the end of the code, we convers the 4 bit ‘arr’ array to a integer
 value ‘val’ and send to though the API developed earlier.
@@ -599,7 +541,7 @@ In this project, we use the enumerator to declare all the states (line
 all the stats in the FSM(line 74 - 403).
 
 FSM_Demo_2.ino:
-<https://github.com/Qinyuan72/Python27_Leap_test/blob/master/FSM_C_TestCode/FSM_Demo_2/FSM_Demo_2.ino>
+<https://github.com/pcyco1/Python27_Leap_test/blob/master/FSM_C_TestCode/FSM_Demo_2/FSM_Demo_2.ino>
 
 <img src="vertopal_ab70a34728144b509a4f3d9a5b8d32aa/media/image7.png"
 style="width:4.24514in;height:1.56944in" />The logic gate circuit wiring
@@ -646,102 +588,102 @@ As the NumPy and Matplotlib no longer supports Python2, we used the os
 standard library to call a separated scrip that will run in python3 in a
 separate environment (highlighted in blue).
 
-        for gesture in frame.gestures():
+        for gesture in frame.gestures():
 
-            if gesture.type == Leap.Gesture.TYPE_SWIPE:
+            if gesture.type == Leap.Gesture.TYPE_SWIPE:
 
-                swipe = SwipeGesture(gesture)
+                swipe = SwipeGesture(gesture)
 
-                print "  Swipe id: %d, state: %s, position: %s,
+                print "  Swipe id: %d, state: %s, position: %s,
 direction: %s, speed: %f" % (gesture.id,
 self.state_names\[gesture.state\],swipe.position, swipe.direction,
 swipe.speed)
 
-                self.frameInfo = "swipe"
+                self.frameInfo = "swipe"
 
-                self.plotData()
+                self.plotData()
 
-                time.sleep(1)
+                time.sleep(1)
 
-    def plotData(self):
+    def plotData(self):
 
-        f.close
+        f.close
 
-        os.system('python AnalogExperiment1\Test\plot.py')
+        os.system('python AnalogExperiment1\Test\plot.py')
 
-        pass
+        pass
 
 line 68 -81:
-<https://github.com/Qinyuan72/Python27_Leap_test/blob/master/AnalogExperiment1/PythonLeap.py>
+<https://github.com/pcyco1/Python27_Leap_test/blob/master/AnalogExperiment1/PythonLeap.py>
 
 The plot code imports a CSV file saved by the leap motion code and
 calculate the voltage and current to plot an I-v
 
-Characteristic diagram.
-
-import matplotlib.pyplot as plt
-
-import numpy as np
-
-zenerData = np.loadtxt('AnalogExperiment1//Test//1N4148.csv',
-delimiter=',')
-
-zenerData\[:,1\] = zenerData\[:,1\] \* 0.0048828125
-
-zenerData\[:,2\] = zenerData\[:,2\] \* 0.0048828125
-
-i = zenerData\[:,1\]/1000
-
-v = zenerData\[:,2\] - zenerData\[:,1\]
-
-fig, ax = plt.subplots()
-
-ax.scatter(v,i\*1000, marker='.', s = 1)
-
-plt.title('1N4148 Zener diode I-V characteristics')
-
-plt.xlabel('Votage(V)')
-
-plt.ylabel('Current(mA)')
-
-plt.show()
+    Characteristic diagram.
+    
+    import matplotlib.pyplot as plt
+    
+    import numpy as np
+    
+    zenerData = np.loadtxt('AnalogExperiment1//Test//1N4148.csv',
+    delimiter=',')
+    
+    zenerData\[:,1\] = zenerData\[:,1\] \* 0.0048828125
+    
+    zenerData\[:,2\] = zenerData\[:,2\] \* 0.0048828125
+    
+    i = zenerData\[:,1\]/1000
+    
+    v = zenerData\[:,2\] - zenerData\[:,1\]
+    
+    fig, ax = plt.subplots()
+    
+    ax.scatter(v,i\*1000, marker='.', s = 1)
+    
+    plt.title('1N4148 Zener diode I-V characteristics')
+    
+    plt.xlabel('Votage(V)')
+    
+    plt.ylabel('Current(mA)')
+    
+    plt.show()
 
 Plot code:
-<https://github.com/Qinyuan72/Python27_Leap_test/blob/master/AnalogExperiment1/Test/plot.py>
+<https://github.com/pcyco1/Python27_Leap_test/blob/master/AnalogExperiment1/Test/plot.py>
 
-        for hand in frame.hands:
+        for hand in frame.hands:
 
-            handType = "Left hand" if hand.is_left else "Right hand"
+            handType = "Left hand" if hand.is_left else "Right hand"
 
-            print "  %s, id %d, position: %s" % (
+            print "  %s, id %d, position: %s" % (
 
-                handType, hand.id, hand.palm_position)
+                handType, hand.id, hand.palm_position)
 
-       
+       
 
-            val = hand.palm_position\[1\]
+            val = hand.palm_position\[1\]
 
-            val = int((val-100)/2)
+            val = int((val-100)/2)
 
-            if (val \>= 0 and val \<=255):
+            if (val \>= 0 and val \<=255):
 
-                if val != self.valTest:
+                if val != self.valTest:
 
-                    UNO_Serial1.write(UNO_Serial1.inputFormart(val))
+                    UNO_Serial1.write(UNO_Serial1.inputFormart(val))
 
-                    self.valTest = val
+                    self.valTest = val
 
-            else:
+            else:
 
-                print "Out of range val = %s" % val
+                print "Out of range val = %s" % val
 
-            print ('PWM value: %s' % val)
+            print ('PWM value: %s' % val)
 
-            dataArry = UNO_Serial1.format(UNO_Serial1.arduino.read(100))
+            dataArry = UNO_Serial1.format(UNO_Serial1.arduino.read(100))
 
-            print(dataArry)
+            print(dataArry)
 
-            UNO_Serial1.writeData(dataArry)
+            UNO_Serial1.writeData(dataArry)
 
 The highlighted part (Blue) of the code extracts the palm position form
 the hand object and convert the value to change the range of the
@@ -794,11 +736,7 @@ alt="Chart, line chart Description automatically generated" />
 
 # Conclusion
 
-The project investigated non-contact Human-Computer Interaction based on
-Leap motion controller. The leap motion platform provides the
-environment for acculturating of hand movement, the Arduino and python
-code carried the link of performing the experiment. A few prototypes to
-control the Lab equipment based on non-contact approaches was developed.
-The prototype demonstrated that it is possible for using Leap motion
-controller for a non-contact Human-Computer Interaction laboratory
-system.
+The project delved into the realm of non-contact Human-Computer Interaction, leveraging the capabilities of the Leap Motion controller. This innovative platform facilitated the tracking of hand movements, while Arduino and Python code formed the backbone of our experimental setup. Throughout the project, we developed several prototypes aimed at controlling laboratory equipment through non-contact methods.
+
+Our prototypes not only showcased the potential but also the feasibility of utilizing the Leap Motion controller in a Human-Computer Interaction laboratory system. This research opens up exciting possibilities for a hands-free and intuitive approach to interfacing with computer systems, promising a future where technology seamlessly integrates with human gestures.
+
