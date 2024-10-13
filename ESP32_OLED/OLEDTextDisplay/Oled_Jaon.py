@@ -3,12 +3,17 @@ import psutil
 from time import sleep
 import socket
 import json
+import logging
 
 # Configuration variables
 SLEEP_TIME = 0.5  # Time interval for each update
 LOG_FILE = "jp2091"
 HOST = "192.168.31.155"
 PORT = 8080
+
+# Configure logging
+logging.basicConfig(filename='system_monitor.log', level=logging.DEBUG, 
+                    format='%(asctime)s:%(levelname)s:%(message)s')
 
 def start_socket():
     """
@@ -19,9 +24,9 @@ def start_socket():
         global socket_conn
         socket_conn = socket.socket()
         socket_conn.connect((HOST, PORT))
-        print(f"Connected to server at {HOST}:{PORT}")
+        logging.info(f"Connected to server at {HOST}:{PORT}")
     except socket.error as e:
-        print(f"Socket connection error: {e}")
+        logging.error(f"Socket connection error: {e}")
         return False
     return True
 
@@ -36,9 +41,9 @@ def send_socket_data(data):
     """
     try:
         socket_conn.sendall(bytes(f"${data}", encoding="utf-8"))
-        print(f"Sent: {data}")
+        logging.info(f"Sent: {data}")
     except (socket.error, OSError) as e:
-        print(f"Socket send error: {e}")
+        logging.error(f"Socket send error: {e}")
         return False
     return True
 
@@ -57,23 +62,17 @@ def reconnect_socket():
     """
     Attempt to reconnect the socket in case of disconnection.
     """
-    print("Attempting to reconnect to socket...")
+    logging.warning("Attempting to reconnect to socket...")
     while not start_socket():
-        print("Reconnection failed. Retrying in 5 seconds...")
+        logging.warning("Reconnection failed. Retrying in 5 seconds...")
         sleep(5)
-    print("Reconnected successfully!")
+    logging.info("Reconnected successfully!")
 
 def get_bytes_received():
     """
     Return the total number of bytes received by the network interface.
     """
     return psutil.net_io_counters(pernic=False, nowrap=False).bytes_recv
-
-def get_bytes_sent():
-    """
-    Return the total number of bytes sent by the network interface.
-    """
-    return psutil.net_io_counters(pernic=False, nowrap=False).bytes_sent
 
 def connect_serial():
     """
@@ -83,9 +82,9 @@ def connect_serial():
         global serial_conn
         serial_conn = serial.Serial('COM8', 9600, timeout=200)
         if serial_conn.is_open:
-            print("Serial connected")
+            logging.info("Serial connected")
     except serial.SerialException as e:
-        print(f"Serial connection error: {e}")
+        logging.error(f"Serial connection error: {e}")
 
 def get_cpu_usage():
     """
@@ -93,70 +92,84 @@ def get_cpu_usage():
     """
     return psutil.cpu_percent()
 
-def generate_json_data(cpu, ram, up_speed_bps, down_speed_bps):
+def write_serial_data(data):
     """
-    Generate a JSON string with system data.
-    
-    Args:
-    - cpu (float): CPU usage percentage.
-    - ram (float): RAM usage percentage.
-    - up_speed_bps (float): Upload speed in bps.
-    - down_speed_bps (float): Download speed in bps.
+    Write data to the serial port.
 
-    Returns:
-    - str: JSON string of the system data.
+    Args:
+    - data (str): The string to be written to the serial port.
     """
-    data = {
+    try:
+        serial_conn.write(bytes(data, encoding="utf8"))
+    except serial.SerialException as e:
+        logging.error(f"Serial write error: {e}")
+
+def prepare_json_payload(cpu, ram, temp, network_speed):
+    """
+    Prepare JSON payload to send to Arduino.
+
+    Args:
+    - cpu (float): CPU usage.
+    - ram (float): RAM usage.
+    - temp (float): Temperature.
+    - network_speed (str): Network speed.
+
+    Returns a JSON string.
+    """
+    payload = {
         "cpu": cpu,
         "ram": ram,
-        "up_speed": up_speed_bps,
-        "down_speed": down_speed_bps
+        "temp": temp,
+        "network_speed": network_speed
     }
-    return json.dumps(data)
+    return json.dumps(payload)
 
 def main():
     """
     Main function to monitor system status, send data over serial and socket,
     and display status on an OLED screen.
     """
+    logging.info("Starting system monitor...")
+    
     # Initialize socket connection
     if not start_socket():
         reconnect_socket()
 
     connect_serial()
     previous_bytes_received = get_bytes_received()
-    previous_bytes_sent = get_bytes_sent()
 
+    logging.info("Entering main loop...")
+    
     while True:
         try:
             cpu_usage = get_cpu_usage()
             ram_usage = psutil.virtual_memory().percent
-
-            # Calculate download speed
             current_bytes_received = get_bytes_received()
-            down_speed_bps = (current_bytes_received - previous_bytes_received) / SLEEP_TIME * 8  # Convert to bits per second
-            previous_bytes_received = current_bytes_received
+            byte_rate_kbps = (((current_bytes_received - previous_bytes_received) * (1 / SLEEP_TIME)) / 800) * 3
+            network_speed = f"{int(byte_rate_kbps)}Kbps" if byte_rate_kbps < 1000 else f"{byte_rate_kbps / 500:.2f}Mbps"
 
-            # Calculate upload speed
-            current_bytes_sent = get_bytes_sent()
-            up_speed_bps = (current_bytes_sent - previous_bytes_sent) / SLEEP_TIME * 8  # Convert to bits per second
-            previous_bytes_sent = current_bytes_sent
+            temp = 25  # Simulate a temperature read (you can pass actual values if available)
 
-            # Generate JSON data
-            json_data = generate_json_data(cpu_usage, ram_usage, up_speed_bps, down_speed_bps)
+            # Prepare JSON payload
+            json_payload = prepare_json_payload(cpu_usage, ram_usage, temp, network_speed)
+
+            # Log payload to make sure it is built correctly
+            logging.info(f"Payload: {json_payload}")
 
             # Check socket connection and send data
             if not is_socket_connected():
-                print("Socket disconnected.")
+                logging.warning("Socket disconnected.")
                 reconnect_socket()
 
-            if not send_socket_data(json_data):
+            if not send_socket_data(json_payload):
                 reconnect_socket()
 
+            # Update the old bytes received value
+            previous_bytes_received = current_bytes_received
             sleep(SLEEP_TIME)
         
         except Exception as e:
-            print(f"Error in main loop: {e}")
+            logging.error(f"Error in main loop: {e}")
             sleep(SLEEP_TIME)
 
 if __name__ == '__main__':

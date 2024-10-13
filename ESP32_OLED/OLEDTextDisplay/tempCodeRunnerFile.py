@@ -27,16 +27,17 @@ def start_socket():
 
 def send_socket_data(data):
     """
-    Send data through the socket connection.
+    Send data through the socket connection in JSON format.
     
     Args:
-    - data (str): The data to be sent.
+    - data (dict): The data to be sent.
 
     Returns True if successful, False otherwise.
     """
     try:
-        socket_conn.sendall(bytes(f"${data}", encoding="utf-8"))
-        print(f"Sent: {data}")
+        json_data = json.dumps(data)  # Convert dictionary to JSON
+        socket_conn.sendall(bytes(f"${json_data}", encoding="utf-8"))
+        print(f"Sent: {json_data}")
     except (socket.error, OSError) as e:
         print(f"Socket send error: {e}")
         return False
@@ -69,12 +70,6 @@ def get_bytes_received():
     """
     return psutil.net_io_counters(pernic=False, nowrap=False).bytes_recv
 
-def get_bytes_sent():
-    """
-    Return the total number of bytes sent by the network interface.
-    """
-    return psutil.net_io_counters(pernic=False, nowrap=False).bytes_sent
-
 def connect_serial():
     """
     Establish a serial connection on COM8 with a baud rate of 9600.
@@ -93,27 +88,6 @@ def get_cpu_usage():
     """
     return psutil.cpu_percent()
 
-def generate_json_data(cpu, ram, up_speed_bps, down_speed_bps):
-    """
-    Generate a JSON string with system data.
-    
-    Args:
-    - cpu (float): CPU usage percentage.
-    - ram (float): RAM usage percentage.
-    - up_speed_bps (float): Upload speed in bps.
-    - down_speed_bps (float): Download speed in bps.
-
-    Returns:
-    - str: JSON string of the system data.
-    """
-    data = {
-        "cpu": cpu,
-        "ram": ram,
-        "up_speed": up_speed_bps,
-        "down_speed": down_speed_bps
-    }
-    return json.dumps(data)
-
 def main():
     """
     Main function to monitor system status, send data over serial and socket,
@@ -125,34 +99,35 @@ def main():
 
     connect_serial()
     previous_bytes_received = get_bytes_received()
-    previous_bytes_sent = get_bytes_sent()
 
     while True:
         try:
             cpu_usage = get_cpu_usage()
             ram_usage = psutil.virtual_memory().percent
-
-            # Calculate download speed
             current_bytes_received = get_bytes_received()
-            down_speed_bps = (current_bytes_received - previous_bytes_received) / SLEEP_TIME * 8  # Convert to bits per second
-            previous_bytes_received = current_bytes_received
+            byte_rate_bps = ((current_bytes_received - previous_bytes_received) * (1 / SLEEP_TIME)) * 8
+            network_speed_bps = byte_rate_bps
 
-            # Calculate upload speed
-            current_bytes_sent = get_bytes_sent()
-            up_speed_bps = (current_bytes_sent - previous_bytes_sent) / SLEEP_TIME * 8  # Convert to bits per second
-            previous_bytes_sent = current_bytes_sent
-
-            # Generate JSON data
-            json_data = generate_json_data(cpu_usage, ram_usage, up_speed_bps, down_speed_bps)
+            temp = 25  # Simulate a temperature read (you can pass actual values if available)
+            
+            # Prepare data in JSON format
+            data = {
+                "cpu": cpu_usage,
+                "ram": ram_usage,
+                "temp": temp,
+                "network": network_speed_bps
+            }
 
             # Check socket connection and send data
             if not is_socket_connected():
                 print("Socket disconnected.")
                 reconnect_socket()
 
-            if not send_socket_data(json_data):
+            if not send_socket_data(data):
                 reconnect_socket()
 
+            # Update the old bytes received value
+            previous_bytes_received = current_bytes_received
             sleep(SLEEP_TIME)
         
         except Exception as e:
